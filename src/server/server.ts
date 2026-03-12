@@ -1,28 +1,27 @@
-import express,  {type Express} from "express";
+import express, { type Express } from "express";
 import cors from "cors";
 import { sequelize } from "../database/config.ts";
 import dotenv from "dotenv";
 dotenv.config();
 
 export class Server {
-
   app: Express;
   port: string | number | undefined;
 
   public constructor() {
     this.app = express();
     this.port = process.env.PORT || 3000;
+    this.connectionToDB();
+    this.middlewares();
   }
 
   async connectionToDB(): Promise<void> {
-        await sequelize.sync()
-    }
+    await sequelize.sync();
+  }
 
-
-  public middlewares(){
+  public middlewares() {
     this.app.use(express.json());
-    this.app.use(cors())
-
+    this.app.use(cors());
   }
 
   public listen() {
@@ -30,6 +29,8 @@ export class Server {
       res.send("Hello World!");
     });
 
-    this.app.listen(this.port, () => console.log("Corriendo en el puerto 4000"));
+    this.app.listen(this.port, () =>
+      console.log("Corriendo en el puerto 4000"),
+    );
   }
 }
