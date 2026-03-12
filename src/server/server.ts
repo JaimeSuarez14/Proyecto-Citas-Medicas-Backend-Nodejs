@@ -6,7 +6,6 @@ import pacienteRouter from "../routes/paciente.route.ts";
 dotenv.config();
 
 export class Server {
-
   app: Express;
   port: string | number | undefined;
   PacientesPath: string;
@@ -21,7 +20,7 @@ export class Server {
     this.routes();
   }
 
-  asociaciones(){}
+  asociaciones() {}
 
   async connectionToDB(): Promise<void> {
     await sequelize.sync();
@@ -33,7 +32,7 @@ export class Server {
   }
 
   public routes() {
-    this.app.use( this.PacientesPath, pacienteRouter)
+    this.app.use(this.PacientesPath, pacienteRouter);
   }
 
   public listen() {
@@ -41,10 +40,14 @@ export class Server {
       res.send("Hello World!");
     });
 
+    this.app.use((req, res) => {
+      res.status(404).json({
+        message: "Ruta no encontrada",
+      });
+    });
+
     this.app.listen(this.port, () =>
       console.log("Corriendo en el puerto 4000"),
     );
   }
-
-
 }
