@@ -1,6 +1,6 @@
-import { DataTypes, Model, Optional } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../database/config.ts";
-
+import { type Optional } from "sequelize";
 export interface IPaciente {
   id: number;
   nombres: string;
@@ -14,7 +14,10 @@ export interface IPaciente {
 interface PacienteCreationAttributes extends Optional<IPaciente, "id"> {}
 
 interface PacienteInstance
-  extends Model<IPaciente, PacienteCreationAttributes>, IPaciente {}
+  extends Model<IPaciente, PacienteCreationAttributes>, IPaciente {
+    createdAt?: Date;
+    updatedAt?: Date;
+  }
 
 export const Pacientes = sequelize.define<PacienteInstance>("Pacientes", {
   id: {
