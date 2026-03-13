@@ -1,7 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../database/config.ts";
 import { type Optional } from "sequelize";
-import { create } from "node:domain";
 export interface IPaciente {
   id: number;
   nombres: string;
