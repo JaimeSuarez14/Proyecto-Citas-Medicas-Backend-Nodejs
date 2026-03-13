@@ -3,6 +3,7 @@ import { Pacientes } from "../models/paciente.ts";
 
 export const createPacientes = async (req: Request, res: Response) => {
   const { nombres, apellidos, edad, cedula, telefono, direccion } = req.body;
+  
   try {
     const paciente = await Pacientes.create({
       nombres,
@@ -14,6 +15,7 @@ export const createPacientes = async (req: Request, res: Response) => {
     });
     res.json(paciente);
   } catch (error) {
+    
     console.log(error);
     res.status(500).json({
       msg: "Error del servidor",
