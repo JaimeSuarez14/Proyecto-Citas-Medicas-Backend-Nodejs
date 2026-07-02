@@ -37,7 +37,7 @@ export class Server {
 
   public listen() {
     this.app.get("/", (req, res) => {
-      res.send("Hello World!");
+      res.status(200).json({ respuesta: "Hello World!" });
     });
 
     this.app.use((req, res) => {
